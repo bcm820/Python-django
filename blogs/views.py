@@ -14,7 +14,7 @@ def new(request):
 
 # '/create'
 def create(request):
-    return redirect('/')
+    return redirect('/blogs/')
 
 # '/<number>'
 def show(request, number):
@@ -28,4 +28,4 @@ def edit(request, number):
 
 # '/<number>/delete'
 def destroy(request, number):
-    return redirect('/')
+    return redirect('/blogs/')
