@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Example</title>
+
+    <!-- Tell Django to listen for static CSS file -->
+    {% load static %}
+
+    <!-- looks in static dir, but you specify <app>/<file>.<ext> -->
+    <link rel="stylesheet" href="{% static 'blog/style.css' %}">
+
+</head>
+<body>
+
+<!-- Displays "create a new blog" -->
+<h1>{{ title }}</h1>
+<h3>By {{ name }}</h3>
+
+<!-- Tell Django to listen for static image file -->
+{% load static %}
+<img src="{% static "blog/img.jpg" %}" alt="My image">
+
+<hr>
+
+<form action=/blogs/create/ method=POST>
+<!-- CSRF token prevents cross-site req forgery -->
+{% csrf_token %}
+
+    <fieldset>
+    <legend>New Blog</legend>
+    Blog Title: <input type=text name=title><br>
+    Description: <textarea name=desc></textarea><br>
+    <input type=submit value="Create">
+    </fieldset>
+
+</form>
+ 
+
+
+</body>
+</html>
