@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+<title>Random Word Generator</title>
+</head>
+<body>
+
+<p>Random Word {{ counter }}</p>
+<h1>{{ word }}</h1>
+
+<form action=/random_word/ method=POST>
+{% csrf_token %}
+<input type=submit value="Generate">
+
+<a href="/random_word/reset/">Reset</a>
+
+</form>
+
+</body>
+</html>
