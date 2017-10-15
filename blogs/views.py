@@ -25,6 +25,7 @@ def new(request):
 def create(request):
 
     # In Django, we specify request methods inside the function. Functions can take both POST and GET request methods via IFs.
+    # But we should still isolate request methods for maintainability
     
     # request.method returns a string with request type ('POST' or 'GET')
     if request.method == "POST":
@@ -57,8 +58,6 @@ def create(request):
 
     else: # i.e. else if request.method == "GET"
         return redirect('/blogs/')
-
-    # --- Does this mean we can use the same URL for GET and POST???
 
 # '/<num>'
 def show(request, num):

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Survey Form</title>
+</head>
+<body>
+
+<p>Thanks for submitting this form! You have submitted this form {{request.session.counter}} times now.</p>
+
+<fieldset>
+    <legend>Submitted Information</legend>
+    <p>
+        Your Name: {{request.session.name}}
+    </p>
+    <p>
+        Dojo Location: {{request.session.dojo}}
+    </p>
+    <p>
+        Favorite Stack: {{request.session.stack}}
+    </p>
+    <p>
+        Comment: {{request.session.comment}}
+    </p>
+    <p><a href="/survey_form/">Go Back</a></p>
+</fieldset>
+
+</body>
+</html>

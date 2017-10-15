@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Survey Form</title>
+</head>
+<body>
+
+<form action=/survey_form/process/ method=POST>
+<!-- CSRF token prevents cross-site req forgery -->
+{% csrf_token %}
+
+    <fieldset>
+    <legend>Dojo Survey</legend>
+    <p>
+        Your Name:<br>
+        <input type=text name=name>
+    </p>
+    <p>
+        Dojo Location:<br>
+        <input list=dojo name=dojo>
+        <datalist id=dojo>
+            <option value="Silicon Valley">
+            <option value="Seattle">
+            <option value="Los Angeles">
+            <option value="Dallas">
+            <option value="Washington DC">
+            <option value="Chicago">
+            <option value="Tulsa">
+        </datalist>
+    </p>
+    <p>
+        Favorite Stack:<br>
+        <input list=stack name=stack>
+        <datalist id=stack>
+            <option value=".NET/C#">
+            <option value="Ruby on Rails">
+            <option value="Python">
+            <option value="MEAN">
+            <option value="Java">
+            <option value="iOS Swift">
+        </datalist>
+    </p>
+    <p>
+        Comment (Optional):<br>
+        <textarea name=comment rows=5 cols=50></textarea>
+    </p>
+    <p><input type=submit value="Submit"></p>
+    </fieldset>
+
+</form>
+
+</body>
+</html>
