@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Amadon</title>
+</head>
+<body>
+
+<h1>Amadon Store!</h1>
+
+<!-- Display all items in product_list -->
+{% for item in request.session.product_list %}
+    <form action=/amadon/buy/ method=POST>
+    {% csrf_token %}
+        <fieldset>
+            <legend>{{item.name}}: ${{item.price}}</legend>
+            Quantity:
+            <select name={{item.id}}>
+                <option value=0>0</option>
+                <option value=1>1</option>
+                <option value=2>2</option>
+                <option value=3>3</option>
+            </select>
+            <input type=submit value="Add to Cart">
+        </fieldset>
+    </form>
+    <br>
+{% endfor %}
+
+<form action=/amadon/checkout/ method=POST>
+{% csrf_token %}
+    <fieldset>
+        <legend>Your Cart</legend>
+        <!-- Confirmation after checkout -->
+        <p>{{request.session.confirm}}</p>
+        <table>
+        <!-- Display items in cart -->
+        {% for item in request.session.cart %}
+        <tr>
+            <td>{{item.name}} ({{item.quantity}}):</td>
+            <td>${{item.subtotal}}</td>
+        </tr>
+        {% endfor %}
+        <!-- Display total if items added -->
+        {% if request.session.total > 0 %}
+        <tr>
+            <td>Order Total:</td>
+            <td>${{request.session.total}}</td>
+        </tr>
+        {% endif %}
+        </table>
+        <p>
+            <input type=submit name=checkout value="Checkout">
+            <input type=submit name=clear value="Empty Cart">
+            <input type=submit name=end value="End Session">
+        </p>
+    </fieldset>
+</form>
+
+</body>
+</html>
