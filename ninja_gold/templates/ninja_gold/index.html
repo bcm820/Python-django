@@ -1,0 +1,35 @@
+<html>
+<head>
+    <meta charset=UTF-8>
+    <title>Ninja Money</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'ninja_gold/style.css' %}">
+</head>
+<body>
+<main>
+
+<header>
+    <h2>Your Gold: {{ request.session.gold }}</h2>
+</header>
+
+<section>
+    {% for place in request.session.locations %}
+    <div>
+        <h2>{{place.name}}</h2>
+        <p>({{place.actions}} gold)</p>
+        <form action='/ninja_gold/{{place.id}}/' method=POST>
+            {% csrf_token %}
+            <input type=submit value="Find Gold!">
+        </form>
+    </div>
+    {% endfor %}
+</section>
+
+<footer>
+    <h2>Activities</h2>
+    <textarea>{{ request.session.activities }}</textarea>
+</footer>
+
+</main>
+</body>
+</html>
