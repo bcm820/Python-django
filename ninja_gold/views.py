@@ -19,7 +19,7 @@ def index(request):
     return render(request, "ninja_gold/index.html")
 
 def process(request, place):
-
+    
     if place == 'farm':
         find = random.randrange(10, 21)
         request.session['gold'] += find
