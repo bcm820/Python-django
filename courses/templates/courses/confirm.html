@@ -1,0 +1,21 @@
+<html>
+<head>
+  <title>Dojo Courses</title>
+</head>
+<body>
+
+<h1>Dojo Courses</h1>
+
+<hr>
+<p><a href="/courses/">Course List</a></p>
+<p><a href="/courses/{{ course.id }}/edit/">Edit</a></p>
+
+<h2> {{ course.title }} </h2>
+<p> Are you sure you want to delete the course, {{course.title}}?</p>
+
+<td><form action="/courses/{{ course.id }}/delete/" method=post>{% csrf_token %}
+  <input type=submit value=Delete>
+</form></td>
+
+</body>
+</html>

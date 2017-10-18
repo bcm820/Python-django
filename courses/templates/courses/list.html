@@ -1,0 +1,34 @@
+<html>
+<head>
+  <title>Dojo Courses</title>
+</head>
+<body>
+
+<h1>Dojo Courses</h1>
+
+<hr>
+<form action=/courses/add/ method=POST>{% csrf_token %}
+    Title: <input type=text name=title><br>
+    Description:<br>
+    <textarea name=description rows=5 cols=50></textarea>
+    <input type=submit value="Add">
+</form>
+{% for message in messages %}
+<p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+{% endfor %}
+<hr>
+
+<table width=100%>
+{% for course in courses %}
+<tr>
+  <td width=10%> {{ course.title }} </td>
+  <td> {{ course.description }} </td>
+  <td width=18%> {{ course.added }} </td>
+  <td width=6%><a href="/courses/{{ course.id }}/">More</a></td>
+  <td width=6%><a href="/courses/{{ course.id }}/confirm/">Delete?</a></td>
+</tr>
+{% endfor %}
+</table>
+
+</body>
+</html>

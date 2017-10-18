@@ -1,0 +1,35 @@
+<html>
+<head>
+  <title>Dojo Courses</title>
+</head>
+<body>
+
+<h1>Dojo Courses</h1>
+
+<hr>
+<p><a href="/courses/">Course List</a></p>
+<p><a href="/courses/{{ course.id }}/edit/">Edit</a></p>
+<p><a href="/courses/{{ course.id }}/confirm/">Delete?</a></p>
+<hr>
+
+<h2> {{ course.title }} </h2>
+<p> {{ course.description }} </p>
+<p> Added on {{ course.added }} </p>
+
+<h3>Add Review</h3>
+<form action="/courses/{{ course.id }}/review/" method=POST>{% csrf_token %}
+  <textarea name=review rows=5 cols=50></textarea>
+  <input type=submit value="Add">
+</form>
+{% for message in messages %}
+<p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+{% endfor %}
+
+<h3>Reviews</h3>
+
+{% for review in reviews %}
+<p>{{review.review}} - Added {{review.added}}</p>
+{% endfor %}
+
+</body>
+</html>
