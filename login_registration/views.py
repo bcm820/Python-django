@@ -54,6 +54,6 @@ def register(request):
         return redirect('/login_registration/success/')
 
 def logout(request):
-    request.session.clear()
+    request.session.flush()
     error(request, "You have successfully ended your session. Thank you!")
     return redirect('/login_registration/')
