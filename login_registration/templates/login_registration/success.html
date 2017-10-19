@@ -1,0 +1,25 @@
+<html>
+<head>
+<title>Login and Registration</title>
+</head>
+<body>
+
+<p>Success, {{ user.first_name }}! You have logged in. Here is your information:</p>
+
+<h2>Your Info</h2>
+<p>ID: {{ user.id }}</p>
+<p>First Name: {{ user.first_name }}</p>
+<p>Last Name: {{ user.last_name }}</p>
+<p>Email: {{ user.email_address }}</p>
+<p>Encrypted Password: {{ user.password }}</p>
+
+<p>Here is your confidential info: You are done with this assignment!</p>
+
+<p>
+    <form action=/login_registration/logout/ method=POST>{% csrf_token %}
+    <input type=submit value=Logout>
+    </form>
+</p>
+
+</body>
+</html>
