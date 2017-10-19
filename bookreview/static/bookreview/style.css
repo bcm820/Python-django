@@ -1,0 +1,15 @@
+container{
+    display: block;
+    margin: 50px 50px;
+}
+
+div{
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+    margin: 0px 50px;
+}
+
+textarea{
+    resize: none;
+}

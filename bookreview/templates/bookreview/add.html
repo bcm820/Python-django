@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<head>
+<meta charset=UTF-8>
+<title>Book Review</title>
+{% load static %}
+<link rel="stylesheet" href="{% static 'bookreview/style.css' %}">
+</head>
+<body>
+<container>
+
+<div>
+    <p><a href=/bookreview/books/>Home</a><br>
+    <a href=/bookreview/logout/>Logout</a></p>
+</div>
+
+<div>
+    <fieldset>
+    <legend>Add a New Book & Review</legend>
+    <form action=/bookreview/books/add/new/ method=post>
+        {% csrf_token %}
+        <p>Book Title: <input list=title name=title>
+            <datalist id=title>
+                {% for book in books %}
+                <option value="{{book.title}}">
+                {% endfor %}
+            </datalist>
+        </p>
+        <p>
+            Author: <input list=author name=author>
+            <datalist id=author>
+                {% for author in authors %}
+                <option value="{{author.author}}">
+                {% endfor %}
+            </datalist>
+        </p>
+        <p>
+            Review:<br>
+            <textarea name=review rows=5 cols=40></textarea>
+        </p>
+        <p>
+            Rating: <select name=rating>
+            <option value=5>5</option>
+            <option value=4>4</option>
+            <option value=3>3</option>
+            <option value=2>2</option>
+            <option value=1>1</option>
+        </select> stars
+        </p>
+        <p><input type="submit" value="Add Book & Review"></p>
+    </form>
+    </fieldset>
+</div>
+
+<div>
+    {% for message in messages %}
+    <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+    {% endfor %}
+</div>
+
+</container>
+</body>
+</html>
