@@ -6,29 +6,37 @@ import bcrypt
 import arrow
 
 
-# GET
+### GET ###
 
-def index(request): # Index page with login & registration
+
+# Index page with login & registration
+def index(request):
     return render(request, 'bookreview/index.html')
 
-def add(request): # Form to add new book with review
+
+# Form to add new book with review
+def add(request):
     if not 'user' in request.session:
         error(request, "You must login to access our reviews.")
         return redirect('/bookreview/')
+        # At every page load, if user has logged out, redirect to index
 
     data = {
         "authors": Author.objects.all(),
         "books": Book.objects.all()
-    }
+    } # Use info to prevent duplicate / similar entries
 
     return render(request, 'bookreview/add.html', data)
 
-def show_book(request, id): # Single book info & review page
+
+# Single book info & reviews page
+def show_book(request, id):
     if not 'user' in request.session:
         error(request, "You must login to access our reviews.")
         return redirect('/bookreview/')
 
     data = {
+        "user": User.objects.get(email=request.session['user']),
         "book": Book.objects.get(id=id),
         "reviews": Book.objects.get(id=id).book_reviews.all()
     }
@@ -36,20 +44,20 @@ def show_book(request, id): # Single book info & review page
     return render(request, 'bookreview/show.html', data)
 
 
-
-### NOT YET
-
+# User info & reviews page
 def show_user(request, id):
     if not 'user' in request.session:
         error(request, "You must login to access our reviews.")
         return redirect('/bookreview/')
 
+    data = {
+        "user": User.objects.get(id=id),
+        "reviews": User.objects.get(id=id).user_reviews.all(),
+        "review_amt": User.objects.get(id=id).user_reviews.all().count()
+    }
 
+    return render(request, 'bookreview/user.html', data)
 
-    return redirect('/bookreview/')
-
-
-### UPDATE LATER with links to individual pages
 
 def main(request):
     if not 'user' in request.session:
@@ -65,13 +73,12 @@ def main(request):
     return render(request, 'bookreview/main.html', data)
 
 
-
-
-# POSTS
+### POSTS ###
 
 
 def new(request):
     
+    # uses custom validators (see models.py)
     errors_book = Book.objects.validate_bookreview(request.POST)
     errors_review = Review.objects.validate_bookreview(request.POST)
 
@@ -86,6 +93,7 @@ def new(request):
         return redirect('/bookreview/books/add/')
 
     else:
+        # if author not in author table, add to author table
         if len(Author.objects.filter(author = request.POST["author"])) < 1:
             Author.objects.create(author = request.POST["author"])
         
@@ -101,9 +109,18 @@ def new(request):
             rating = int(request.POST["rating"])
         )
 
+        # query for book id to redirect to new page
+        # integers must encode as strings for url redirect
         book_id = str(Book.objects.get(title=request.POST["title"]).id)
         
         return redirect('/bookreview/books/' + book_id)
+
+
+def remove(request, id):
+    Review.objects.get(id=id).delete()
+    error(request, "You have removed your review.")
+    return redirect('/bookreview/books/')
+
 
 
 def review(request, id):

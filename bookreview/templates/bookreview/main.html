@@ -12,14 +12,23 @@
     <h3>Welcome, {{user.alias}}!</h3>
     <p><a href="/bookreview/books/add/">Add Book & Review</a><br>
     <a href=/bookreview/logout/>Logout</a></p>
+
+    {% for message in messages %}
+    <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+    {% endfor %}
+
 </div>
 
 <div>
     <h3>Recent Book Reviews</h3>
     {% for review in recent %}
     <p>
-        {{review.book.title}} - {{review.rating}} stars<br>
-        {{review.user.alias}} says: {{review.review}}<br>
+        <a href=/bookreview/books/{{review.book.id}}/>{{review.book.title}}</a> ({{review.rating}} stars)
+        {% if user.id == review.user.id %}
+         - <a href=/bookreview/reviews/{{review.id}}/remove/>Delete</a>
+        {% endif %}
+        <br>
+        <a href=/bookreview/users/{{review.user.id}}/>{{review.user.alias}}</a> says: {{review.review}}<br>
         Posted on {{review.added}}<br>
     </p>
     {% endfor %}
@@ -28,7 +37,7 @@
 <div>
     <h3>Other Books With Reviews</h3>
     {% for book in books %}
-    <p>{{book.title}}</p>
+    <p><a href=/bookreview/books/{{book.id}}/>{{book.title}}</a></p>
     {% endfor %}
 </div>
 

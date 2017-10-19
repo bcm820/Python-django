@@ -14,20 +14,14 @@
 </div>
 
 <div>
-    <h3>{{book.title}}</h3>
-    <p>{{book.author.author}}</p>
+    <h3>User Alias: {{user.alias}}</h3>
+    <p>Name: {{user.name}}</p>
+    <p>Total Reviews: {{review_amt}}</p>
     <hr>
 
-    <h3>Reviews</h3>
+    <h3>Posted Reviews on the Following Books:</h3>
     {% for review in reviews %}
-    <p>
-        Rating: {{review.rating}} stars<br>
-        {{review.user.alias}} says: {{review.review}}<br>
-        Posted on {{review.added}}
-        {% if user.id == review.user.id %}
-        - <a href=/bookreview/reviews/{{review.id}}/remove/>Delete</a>
-        {% endif %}
-    </p>
+    <p><a href=/bookreview/books/{{review.book.id}}/>{{review.book.title}}</a></p>
     {% endfor %}
 </div>
 
