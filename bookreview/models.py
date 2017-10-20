@@ -46,15 +46,12 @@ class UserManager(models.Manager):
         errors = {}
 
         for field, value in post_data.iteritems():
-            if not field == "csrfmiddlewaretoken":
-
-                if field == "email":
-                    if len(self.filter(email = post_data[field])) == 0:
-                        errors[field] = "Error: Email address not found."
-
-                if field == "password":
-                    truepass = self.get(email = post_data['email']).password
-                    if not bcrypt.checkpw(post_data[field].encode(), truepass.encode()):
+            if field == "email":
+                if len(self.filter(email = post_data[field])) < 1:
+                    errors[field] = "Error: Email address not found."
+                else:
+                    truepass = self.get(email=post_data['email']).password
+                    if not bcrypt.checkpw(post_data['password'].encode(), truepass.encode()):
                         errors[field] = "Error: Password invalid."
 
         return errors
